@@ -1,3 +1,4 @@
+// login.js
 function OnSubmit() {
     let empNumber = document.getElementById("number").value;
     let password = document.getElementById("password").value;
