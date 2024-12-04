@@ -1,0 +1,66 @@
+[
+  {
+    "userID": "000000001",
+    "fullName": "John Doe",
+    "jobPosition": "admin",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "salespersons": ["000000002", "000000003", "000000004"]
+  },
+  {
+    "userID": "000000002",
+    "fullName": "Jane Doe",
+    "jobPosition": "sales",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "adminID": "000000001"
+  },
+  {
+    "userID": "000000003",
+    "fullName": "Tom Smith",
+    "jobPosition": "sales",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "adminID": "000000001"
+  },
+  {
+    "userID": "000000004",
+    "fullName": "Emily Brown",
+    "jobPosition": "sales",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "adminID": "000000001"
+  },
+  {
+    "userID": "000000005",
+    "fullName": "Alice Green",
+    "jobPosition": "admin",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "salespersons": ["000000006", "000000007", "000000008"]
+  },
+  {
+    "userID": "000000006",
+    "fullName": "Michael Johnson",
+    "jobPosition": "sales",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "adminID": "000000005"
+  },
+  {
+    "userID": "000000007",
+    "fullName": "Laura Wilson",
+    "jobPosition": "sales",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "adminID": "000000005"
+  },
+  {
+    "userID": "000000008",
+    "fullName": "Chris Martinez",
+    "jobPosition": "sales",
+    "password": "password",
+    "imagePath": "images/listening.jpg",
+    "adminID": "000000005"
+  }
+]
