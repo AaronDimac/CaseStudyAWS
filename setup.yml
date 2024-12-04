@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  EmployeeTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "EmployeeTable-${AWS::StackName}-${AWS::AccountId}"
+      AttributeDefinitions:
+        - AttributeName: userID
+          AttributeType: S
+        - AttributeName: jobPosition
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userID
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: JobPositionIndex
+          KeySchema:
+            - AttributeName: jobPosition
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+      BillingMode: PAY_PER_REQUEST
+
+  EmployeeBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+    Metadata:
+      Comment: "S3 bucket for hosting static website and storing images."
+
+  EmployeeBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref EmployeeBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${EmployeeBucket}/*"
+
+  CloudWatchLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: EmployeeSystemLogs
+      RetentionInDays: 7
+    Metadata:
+      Comment: "CloudWatch log group for monitoring."
+
+  Cloud9Environment:
+    Type: AWS::Cloud9::EnvironmentEC2
+    Properties:
+      Name: EmployeeSystemCloud9
+      Description: "Cloud9 IDE for development and deployment."
+      InstanceType: t2.micro
+      AutomaticStopTimeMinutes: 30
+      ImageId: amazonlinux-2-x86_64  # Amazon Linux 2 AMI for Cloud9
+
+Outputs:
+  S3BucketWebsiteURL:
+    Value: !Sub "http://${EmployeeBucket}.s3-website-us-east-1.amazonaws.com"
+    Description: "URL of the S3 bucket hosting the website."
+
+  DynamoDBTableName:
+    Value: !Ref EmployeeTable
+    Description: "Name of the DynamoDB table."
+
+  GeneratedS3BucketName:
+    Value: !Ref EmployeeBucket
+    Description: "Name of the S3 bucket created by CloudFormation."
